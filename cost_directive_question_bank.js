@@ -524,7 +524,7 @@ window.questionBanks = {
     {
       "id": 23,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 23: Which cost is usually variable in the short run for a restaurant?",
+      "q": "Which cost is usually variable in the short run for a restaurant?",
       "options": [
         "Ingredients used for each meal sold",
         "Monthly rent under a lease",
@@ -744,7 +744,7 @@ window.questionBanks = {
     {
       "id": 33,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 33: Orchid Robotics rewards call-center workers only for calls per hour. Complaints rise. What likely went wrong?",
+      "q": "Orchid Robotics rewards call-center workers only for calls per hour. Complaints rise. What likely went wrong?",
       "options": [
         "The metric rewarded speed while ignoring service quality",
         "The result shows performance measures are unnecessary when employees know their jobs",
@@ -766,7 +766,7 @@ window.questionBanks = {
     {
       "id": 34,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 34: Harbor Gate Apparel wants employees to choose projects that increase total firm value. Which design change best supports that?",
+      "q": "Harbor Gate Apparel wants employees to choose projects that increase total firm value. Which design change best supports that?",
       "options": [
         "Give project evaluators relevant cost and benefit information and reward value-creating choices",
         "Give decision rights to employees without checking whether their information and payoffs match firm value",
@@ -854,7 +854,7 @@ window.questionBanks = {
     {
       "id": 38,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 38: Which cost is usually variable in the short run for a restaurant?",
+      "q": "Which cost is usually variable in the short run for a restaurant?",
       "options": [
         "Ingredients used for each meal sold",
         "Annual business license fee",
@@ -898,7 +898,7 @@ window.questionBanks = {
     {
       "id": 40,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 40: The hidden-cost fallacy occurs when a decision maker:",
+      "q": "The hidden-cost fallacy occurs when a decision maker:",
       "options": [
         "Uses MR and MC to make an extent decision",
         "Includes a sunk cost that cannot be changed",
@@ -964,7 +964,7 @@ window.questionBanks = {
     {
       "id": 43,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 43: Orchid Robotics switches technicians from per-job bonuses to a flat fee. What effort effect should management worry about?",
+      "q": "Orchid Robotics switches technicians from per-job bonuses to a flat fee. What effort effect should management worry about?",
       "options": [
         "Opportunity cost disappears without testing whether the incentive or information problem remains",
         "Average cost must rise for every output level",
@@ -986,7 +986,7 @@ window.questionBanks = {
     {
       "id": 44,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 44: Harbor Gate Apparel sees average cost fall at first as output expands, then rise after capacity gets crowded. What is the most likely explanation?",
+      "q": "Harbor Gate Apparel sees average cost fall at first as output expands, then rise after capacity gets crowded. What is the most likely explanation?",
       "options": [
         "Spreading fixed costs first lowers average cost, but diminishing returns later raise marginal and average cost",
         "Treat the historical spending record as decisive even though the current decision cannot recover that spending",
@@ -1074,7 +1074,7 @@ window.questionBanks = {
     {
       "id": 48,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 48: Blackline Catering rewards call-center workers only for calls per hour. Complaints rise. What likely went wrong?",
+      "q": "Blackline Catering rewards call-center workers only for calls per hour. Complaints rise. What likely went wrong?",
       "options": [
         "The metric rewarded speed while ignoring service quality",
         "The firm used a broad quality metric but failed to communicate the performance target",
@@ -1096,7 +1096,7 @@ window.questionBanks = {
     {
       "id": 49,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 49: Sterling Medical wants employees to choose projects that increase total firm value. Which design change best supports that?",
+      "q": "Sterling Medical wants employees to choose projects that increase total firm value. Which design change best supports that?",
       "options": [
         "Give decision rights to employees without checking whether their information and payoffs match firm value",
         "Hide cost information from evaluators and ignore the opportunity cost created by the best alternative",
@@ -1184,7 +1184,7 @@ window.questionBanks = {
     {
       "id": 53,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 53: Which cost is usually variable in the short run for a restaurant?",
+      "q": "Which cost is usually variable in the short run for a restaurant?",
       "options": [
         "Annual business license fee",
         "Ingredients used for each meal sold",
@@ -1294,7 +1294,7 @@ window.questionBanks = {
     {
       "id": 58,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 58: Blackline Catering switches technicians from per-job bonuses to a flat fee. What effort effect should management worry about?",
+      "q": "Blackline Catering switches technicians from per-job bonuses to a flat fee. What effort effect should management worry about?",
       "options": [
         "Average cost must rise for every output level",
         "The marginal reward for completing extra jobs falls, so effort may fall",
@@ -1316,7 +1316,7 @@ window.questionBanks = {
     {
       "id": 59,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 59: Sterling Medical sees average cost fall at first as output expands, then rise after capacity gets crowded. What is the most likely explanation?",
+      "q": "Sterling Medical sees average cost fall at first as output expands, then rise after capacity gets crowded. What is the most likely explanation?",
       "options": [
         "Conclude the cost curve is irrelevant to contracting because output can always expand without crowding inputs",
         "Spreading fixed costs first lowers average cost, but diminishing returns later raise marginal and average cost",
@@ -1382,7 +1382,7 @@ window.questionBanks = {
     {
       "id": 62,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 62: Iron Ledger Logistics raises piece-rate pay and output rises. What does the rational-actor paradigm predict?",
+      "q": "Iron Ledger Logistics raises piece-rate pay and output rises. What does the rational-actor paradigm predict?",
       "options": [
         "Workers respond because the reward to additional effort increased",
         "The pay change removed the tradeoff between work effort and other uses of time",
@@ -1404,7 +1404,7 @@ window.questionBanks = {
     {
       "id": 63,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 63: Orchid Robotics rewards call-center workers only for calls per hour. Complaints rise. What likely went wrong?",
+      "q": "Orchid Robotics rewards call-center workers only for calls per hour. Complaints rise. What likely went wrong?",
       "options": [
         "The reward rule was visible but disconnected from the true service objective",
         "The firm used a broad quality metric but failed to communicate the performance target",
@@ -1426,7 +1426,7 @@ window.questionBanks = {
     {
       "id": 64,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 64: Harbor Gate Apparel wants employees to choose projects that increase total firm value. Which design change best supports that?",
+      "q": "Harbor Gate Apparel wants employees to choose projects that increase total firm value. Which design change best supports that?",
       "options": [
         "Hide cost information from evaluators and ignore the opportunity cost created by the best alternative",
         "Give decision rights to employees without checking whether their information and payoffs match firm value",
@@ -1514,7 +1514,7 @@ window.questionBanks = {
     {
       "id": 68,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 68: Which cost is usually variable in the short run for a restaurant?",
+      "q": "Which cost is usually variable in the short run for a restaurant?",
       "options": [
         "Annual business license fee",
         "Monthly rent under a lease",
@@ -1558,7 +1558,7 @@ window.questionBanks = {
     {
       "id": 70,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 70: The hidden-cost fallacy occurs when a decision maker:",
+      "q": "The hidden-cost fallacy occurs when a decision maker:",
       "options": [
         "Fails to include relevant costs that are not immediately obvious",
         "Includes a sunk cost that cannot be changed",
@@ -1624,7 +1624,7 @@ window.questionBanks = {
     {
       "id": 73,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 73: Orchid Robotics switches technicians from per-job bonuses to a flat fee. What effort effect should management worry about?",
+      "q": "Orchid Robotics switches technicians from per-job bonuses to a flat fee. What effort effect should management worry about?",
       "options": [
         "Average cost must rise for every output level",
         "The marginal reward for completing extra jobs falls, so effort may fall",
@@ -1646,7 +1646,7 @@ window.questionBanks = {
     {
       "id": 74,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 74: Harbor Gate Apparel sees average cost fall at first as output expands, then rise after capacity gets crowded. What is the most likely explanation?",
+      "q": "Harbor Gate Apparel sees average cost fall at first as output expands, then rise after capacity gets crowded. What is the most likely explanation?",
       "options": [
         "Spreading fixed costs first lowers average cost, but diminishing returns later raise marginal and average cost",
         "Conclude the cost curve is irrelevant to contracting because output can always expand without crowding inputs",
@@ -1712,7 +1712,7 @@ window.questionBanks = {
     {
       "id": 77,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 77: Which statement does not belong in the rational-actor paradigm?",
+      "q": "Which statement does not belong in the rational-actor paradigm?",
       "options": [
         "Treat rational behavior as perfect forecasting",
         "People act unselfishly in every decision",
@@ -1734,7 +1734,7 @@ window.questionBanks = {
     {
       "id": 78,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 78: Blackline Catering rewards call-center workers only for calls per hour. Complaints rise. What likely went wrong?",
+      "q": "Blackline Catering rewards call-center workers only for calls per hour. Complaints rise. What likely went wrong?",
       "options": [
         "The result shows performance measures are unnecessary when employees know their jobs",
         "The metric rewarded speed while ignoring service quality",
@@ -1756,7 +1756,7 @@ window.questionBanks = {
     {
       "id": 79,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 79: Sterling Medical wants employees to choose projects that increase total firm value. Which design change best supports that?",
+      "q": "Sterling Medical wants employees to choose projects that increase total firm value. Which design change best supports that?",
       "options": [
         "Give decision rights to employees without checking whether their information and payoffs match firm value",
         "Give project evaluators relevant cost and benefit information and reward value-creating choices",
@@ -1844,7 +1844,7 @@ window.questionBanks = {
     {
       "id": 83,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 83: Which cost is usually variable in the short run for a restaurant?",
+      "q": "Which cost is usually variable in the short run for a restaurant?",
       "options": [
         "Annual business license fee",
         "Assume the organizational objective is met",
@@ -1866,7 +1866,7 @@ window.questionBanks = {
     {
       "id": 84,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 84: An owner says, 'My company made an accounting profit, so I definitely created economic value for myself.' What is missing?",
+      "q": "An owner says, 'My company made an accounting profit, so I definitely created economic value for myself.' What is missing?",
       "options": [
         "The selling price only and ignore the opportunity cost created by the best alternative",
         "The number of employees only without testing whether the incentive or information problem remains",
@@ -1910,7 +1910,7 @@ window.questionBanks = {
     {
       "id": 86,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 86: Metro Vault Security produces 115 licenses at total cost $4,850. What is average cost?",
+      "q": "Metro Vault Security produces 115 licenses at total cost $4,850. What is average cost?",
       "options": [
         "$50",
         "$750",
@@ -1954,7 +1954,7 @@ window.questionBanks = {
     {
       "id": 88,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 88: Blackline Catering switches technicians from per-job bonuses to a flat fee. What effort effect should management worry about?",
+      "q": "Blackline Catering switches technicians from per-job bonuses to a flat fee. What effort effect should management worry about?",
       "options": [
         "Opportunity cost disappears while treating past spending as if it determines the current choice",
         "The marginal reward for completing extra jobs falls, so effort may fall",
@@ -1976,7 +1976,7 @@ window.questionBanks = {
     {
       "id": 89,
       "sourceGame": "costDirective",
-      "q": "Baseline cost-control file 89: Sterling Medical sees average cost fall at first as output expands, then rise after capacity gets crowded. What is the most likely explanation?",
+      "q": "Sterling Medical sees average cost fall at first as output expands, then rise after capacity gets crowded. What is the most likely explanation?",
       "options": [
         "Spreading fixed costs first lowers average cost, but diminishing returns later raise marginal and average cost",
         "Conclude the cost curve is irrelevant to contracting because output can always expand without crowding inputs",
