@@ -394,10 +394,10 @@ window.questionBanks = {
       "sourceGame": "costDirective",
       "q": "Which statement does not belong in the rational-actor paradigm?",
       "options": [
-        "Assume the organizational objective is met",
-        "Treat rational behavior as perfect forecasting",
-        "People compare expected benefits and costs",
-        "People act unselfishly in every decision"
+        "People compare expected benefits and costs before choosing.",
+        "People respond to incentives and constraints.",
+        "People choose the option they believe best advances their objective.",
+        "People follow routines even when incentives point in another direction."
       ],
       "a": 3,
       "tag": "rational_actor",
@@ -409,7 +409,7 @@ window.questionBanks = {
       "secondarySkills": [],
       "repairSkill": "rational_actor_paradigm",
       "commonError": "treats_rational_actor_as_unselfish_or_perfectly_informed_instead_of_incentive_driven",
-      "feedback": "The rational-actor paradigm does not require people to be saints. It assumes they respond to incentives and pursue what they value."
+      "feedback": "The rational-actor paradigm does not require people to follow routines. It assumes they respond to incentives and pursue what they value."
     },
     {
       "id": 18,
