@@ -4609,6 +4609,14 @@ function startSelectedMode(mode){
     gameMode = mode || "standard";
     localStorage.setItem("costDirectiveCurrentMode", gameMode);
 
+    // Safety check. The mastery report temporarily replaces the gameBox contents,
+    // so mode starts must come from the assignment menu where the question DOM exists.
+    // Otherwise the game can start music and state while having no question elements. Ugly. Fixed.
+    if(!document.getElementById("question") || !document.getElementById("answers")){
+        returnToModeSelectFromRun();
+        return;
+    }
+
     const modeScreen = document.getElementById("modeSelectScreen");
     if(modeScreen) modeScreen.style.display = "none";
 
@@ -5432,7 +5440,7 @@ function wizardSpeak(text){
 // The question pools will live in cost_directive_question_bank.js once the pool is built.
 // Keep that file beside this index.html file in the GitHub Pages root.
 // =============================================
-</script><script src="cost_directive_question_bank.js?v=20260704_1"></script><script>
+</script><script src="cost_directive_question_bank.js?v=20260705_3"></script><script>
 if(!window.questionBanks){
     throw new Error("The Cost Directive question bank did not load. Check cost_directive_question_bank.js.");
 }
@@ -7772,7 +7780,7 @@ function getMasteryReportData(){
     const nextSteps = [];
 
     if(noMajorWeakness){
-        nextSteps.push("Enter Legendary Mode next. The current run did not expose a major weak point, so harder multi-step and trap-heavy questions are the right next test.");
+        nextSteps.push("Enter Legendary Mode from the assignment menu next. The current run did not expose a major weak point, so harder multi-step and trap-heavy questions are the right next test.");
         nextSteps.push("Use Score Attack after Legendary Mode feels stable. Speed pressure is useful only after mastery survives harder questions.");
     } else {
         if(hasObjectiveWeakness && weakestObjectives[0]){
@@ -7914,7 +7922,6 @@ function showMasteryReportScreen(){
 
             <div class="mastery-actions">
                 <button class="continue-btn" onclick="copyMasteryReport()">Copy Report</button>
-                ${report.noMajorWeakness && gameMode !== "legendary" ? `<button class="continue-btn" onclick="startSelectedMode('legendary')">Enter Legendary Mode</button>` : ""}
                 <button class="continue-btn secondary-modal-btn" onclick="restoreResultsScreen()">Back to Results</button>
                 <button class="continue-btn secondary-modal-btn" onclick="returnToModeSelectFromRun()">Choose Another Assignment</button>
             </div>
@@ -8176,3 +8183,4 @@ function sendGameData(data) {
 
 </script></body>
 </html>
+
