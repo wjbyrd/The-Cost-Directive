@@ -2462,6 +2462,7 @@ body.game-active #soundToggle {
 
 /* =========================================
    POST-BATTLE MASTERY REPORT — COST DIRECTIVE
+   Market Gate diagnostic bars and scan-friendly row layout.
 ========================================= */
 .mastery-report-screen{
     text-align:left;
@@ -2476,111 +2477,162 @@ body.game-active #soundToggle {
     letter-spacing:2px;
     margin:0 0 8px 0;
     text-shadow:
-        0 0 16px rgba(240,200,106,0.65),
-        0 0 26px rgba(56,189,248,0.26),
-        0 2px 6px rgba(0,0,0,0.9);
+        0 0 16px rgba(240,200,106,0.70),
+        0 0 30px rgba(56,189,248,0.28),
+        0 3px 8px rgba(0,0,0,0.92);
 }
 
 .mastery-report-subtitle{
     text-align:center;
     color:#bae6fd;
-    margin:0 0 18px 0;
+    font-style:italic;
+    margin:0 auto 18px auto;
+    max-width:680px;
     line-height:1.45;
 }
 
 .mastery-summary-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));
+    grid-template-columns:repeat(auto-fit, minmax(145px, 1fr));
     gap:10px;
-    margin:16px 0 18px;
+    margin:18px 0;
+}
+
+.mastery-stat-card,
+.mastery-section{
+    background:
+        radial-gradient(circle at top,
+            rgba(56,189,248,0.14),
+            rgba(15,23,42,0.82) 45%,
+            rgba(2,6,23,0.96));
+    border:1px solid rgba(240,200,106,0.28);
+    border-radius:12px;
+    box-shadow:
+        0 0 18px rgba(0,0,0,0.62),
+        inset 0 0 20px rgba(0,0,0,0.52);
 }
 
 .mastery-stat-card{
-    background:linear-gradient(180deg, rgba(15,23,42,0.86), rgba(2,6,23,0.96));
-    border:1px solid rgba(56,189,248,0.28);
-    border-radius:12px;
     padding:12px;
     text-align:center;
-    box-shadow:inset 0 0 16px rgba(0,0,0,0.68), 0 0 18px rgba(56,189,248,0.12);
 }
 
 .mastery-stat-label{
     display:block;
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:1.5px;
     color:#bae6fd;
-    opacity:.86;
-    margin-bottom:4px;
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:6px;
 }
 
 .mastery-stat-value{
     display:block;
-    font-size:24px;
-    font-weight:800;
     color:#f0c86a;
+    font-size:24px;
+    font-weight:900;
+    text-shadow:0 0 10px rgba(240,200,106,0.40);
 }
 
 .mastery-section{
-    margin:18px 0;
-    padding:14px;
-    border-radius:12px;
-    background:rgba(2,6,23,0.62);
-    border:1px solid rgba(240,200,106,0.24);
-    box-shadow:0 0 20px rgba(0,0,0,0.42), inset 0 0 18px rgba(0,0,0,0.58);
+    padding:16px;
+    margin:14px 0;
 }
 
 .mastery-section h3{
-    margin:0 0 10px 0;
+    margin:0 0 12px 0;
     color:#f0c86a;
     letter-spacing:1px;
+    text-shadow:0 0 10px rgba(240,200,106,0.34);
+}
+
+.mastery-verdict{
+    border-left:3px solid #f0c86a;
+    padding:14px 16px;
+    margin:14px 0;
+    background:rgba(2,6,23,0.54);
+    border-radius:10px;
+    color:#dbeafe;
+    line-height:1.5;
 }
 
 .mastery-row{
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    padding:8px 0;
-    border-bottom:1px solid rgba(56,189,248,0.16);
+    padding:10px 0;
+    border-top:1px solid rgba(219,234,254,0.12);
 }
 
-.mastery-row:last-child{ border-bottom:0; }
+.mastery-row:first-child{
+    border-top:none;
+}
 
-.mastery-row-label{
-    color:#dbeafe;
+.mastery-row-main{
+    display:flex;
+    justify-content:space-between;
+    gap:14px;
+    align-items:flex-start;
+}
+
+.mastery-row-name{
+    color:#e5e7eb;
+    font-weight:700;
+    line-height:1.25;
+}
+
+.mastery-row-score{
+    color:#f0c86a;
+    white-space:nowrap;
+    font-weight:800;
+}
+
+.mastery-row-meta{
+    display:block;
+    margin-top:5px;
+    color:rgba(186,230,253,0.72);
+    font-size:12px;
     line-height:1.35;
 }
 
-.mastery-row-value{
-    color:#f0c86a;
-    font-weight:800;
-    white-space:nowrap;
+.mastery-bar{
+    height:8px;
+    margin-top:8px;
+    border-radius:999px;
+    background:rgba(2,6,23,0.82);
+    overflow:hidden;
+    border:1px solid rgba(56,189,248,0.18);
 }
 
-.mastery-note{
-    color:#dbeafe;
-    line-height:1.5;
-    margin:8px 0 0;
+.mastery-bar-fill{
+    height:100%;
+    width:0%;
+    border-radius:999px;
+    background:linear-gradient(90deg, #b91c1c, #38bdf8, #f0c86a);
+    box-shadow:0 0 10px rgba(56,189,248,0.38);
+    transition:width .45s ease;
+}
+
+.mastery-empty{
+    color:rgba(219,234,254,0.74);
+    font-style:italic;
+    margin:0;
 }
 
 .mastery-actions{
     display:flex;
     justify-content:center;
-    flex-wrap:wrap;
     gap:10px;
-    margin-top:18px;
+    flex-wrap:wrap;
+    margin-top:20px;
 }
 
-.mastery-empty{
-    color:rgba(219,234,254,0.78);
-    font-style:italic;
+.mastery-actions button{
+    min-width:150px;
 }
 
 @media(max-width:768px){
-    .mastery-report-screen{ padding:14px 6px; }
-    .mastery-report-title{ font-size:25px; }
-    .mastery-row{ flex-direction:column; gap:4px; }
-    .mastery-row-value{ white-space:normal; }
+    .mastery-report-screen{ padding:14px; }
+    .mastery-report-title{ font-size:24px; }
+    .mastery-row-main{ flex-direction:column; gap:4px; }
+    .mastery-row-score{ white-space:normal; }
 }
 </style>
 </head>
@@ -8183,4 +8235,5 @@ function sendGameData(data) {
 
 </script></body>
 </html>
+
 
