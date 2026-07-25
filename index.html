@@ -2642,7 +2642,7 @@ body.game-active #soundToggle {
 .resource-card{ min-width:0; padding:16px; border:1px solid rgba(240,200,106,0.38); border-radius:11px; background:rgba(2,6,23,0.58); box-shadow:inset 0 0 18px rgba(0,0,0,0.34); }
 .resource-card-header{ display:flex; align-items:flex-start; justify-content:space-between; gap:12px; min-width:0; }
 .resource-card-title{ min-width:0; margin:0; color:#f0c86a; font-size:17px; font-weight:800; line-height:1.32; overflow-wrap:anywhere; }
-.resource-card-type{ flex:0 1 auto; max-width:100%; padding:4px 8px; border:1px solid rgba(56,189,248,0.42); border-radius:999px; color:#bae6fd; font-size:11px; font-weight:800; line-height:1.2; text-transform:uppercase; overflow-wrap:anywhere; }
+.resource-card-type{ flex:0 0 auto; max-width:100%; padding:4px 8px; border:1px solid rgba(56,189,248,0.42); border-radius:999px; color:#bae6fd; font-size:11px; font-weight:800; line-height:1.2; text-transform:uppercase; white-space:nowrap; overflow-wrap:normal; }
 .resource-card-description{ margin:10px 0 14px; color:rgba(238,246,255,0.9); line-height:1.55; overflow-wrap:anywhere; }
 .resource-card-link{ display:inline-flex; align-items:center; justify-content:center; min-height:42px; max-width:100%; padding:9px 14px; border-radius:8px; background:linear-gradient(180deg, #1b5b79, #10364d); border:1px solid rgba(186,230,253,0.4); color:#fff; font-weight:800; text-decoration:none; box-sizing:border-box; overflow-wrap:anywhere; }
 .resource-card-link:hover{ filter:brightness(1.12); }
@@ -2653,7 +2653,7 @@ body.game-active #soundToggle {
 @media(max-width:420px){
     .resource-card{ padding:14px; }
     .resource-card-header{ flex-direction:column; gap:8px; }
-    .resource-card-type{ white-space:normal; }
+    .resource-card-type{ white-space:nowrap; }
     .resource-card-link{ width:100%; }
 }
 
@@ -3171,8 +3171,12 @@ let rapidGuessLocked = false;
 const RAPID_GUESS_CONFIG = {
     windowSize: 8,          // look at last 8 attempts
     minAttempts: 5,         // don't trigger until at least 5 recent attempts exist
-    avgTimeMs: 3000,        // average under 3 seconds = suspicious
+    avgTimeMs: 3000,        // rolling average under 3 seconds = suspicious
     maxAccuracy: 0.50,      // under 50% accuracy = not engaged
+    burstWindowSize: 4,     // also inspect the most recent local burst
+    burstFastMs: 2500,      // a response under 2.5 seconds counts as fast
+    burstMinFast: 3,        // three fast answers in the burst is suspicious
+    burstMaxAccuracy: 0.25, // no more than one correct answer in four
     lockMs: 4500            // pause length
 };
 let tagHistory = [];
@@ -4855,14 +4859,15 @@ function endTimedAttemptEarly(){
     const accuracy = totalAttempts > 0
         ? Math.round((correctAnswers / totalAttempts) * 100)
         : 0;
-    const reachedRoom = Math.max(timedHighestRoom || 1, room || 1);
 
     localStorage.setItem("costDirectiveTimedLastRoom", String(room));
-    localStorage.setItem("costDirectiveTimedLastHighestRoom", String(reachedRoom));
     localStorage.setItem("costDirectiveTimedLastAccuracy", String(accuracy));
     localStorage.setItem("costDirectiveTimedLastAttempts", String(totalAttempts));
     localStorage.setItem("costDirectiveTimedLastStreak", String(maxStreak));
 
+    const reachedRoom = Math.max(timedHighestRoom || 1, room || 1);
+
+    localStorage.setItem("costDirectiveTimedLastRoom", String(reachedRoom));
 
     recordTimedTrialAchievementStats(accuracy, reachedRoom);
 
@@ -5262,7 +5267,7 @@ function endTimedModeRun(){
     const accuracy = totalAttempts > 0
         ? Math.round((correctAnswers / totalAttempts) * 100)
         : 0;
-    const totalTimeMs = freezeCompletionTime(timedModeDurationMs);
+    const totalTimeMs = freezeCompletionTime();
     const timeString = formatTime(totalTimeMs);
     const verificationCode = generateCode(username + "|TIMED", accuracy, maxStreak, totalTimeMs);
 
@@ -5294,9 +5299,9 @@ function endTimedModeRun(){
         responseTime: 0,
         attempt: totalAttempts,
         streak: streak,
-        elapsedTime: totalTimeMs,
+        elapsedTime: startTime ? (Date.now() - startTime) : 0,
         adaptiveMode: "timed_complete",
-        totalTime: totalTimeMs,
+        totalTime: timedModeDurationMs,
         accuracy: accuracy / 100,
         maxStreak: maxStreak,
         totalAttempts: totalAttempts,
@@ -5553,16 +5558,16 @@ function wizardSpeak(text){
 
 // =============================================
 // QUESTION BANKS — EXTERNALIZED
-// The question pools will live in cost_directive_question_bank_student.js.
+// The question pools will live in cost_directive_question_bank.js once the pool is built.
 // Keep that file beside this index.html file in the GitHub Pages root.
 // =============================================
 
 
-if(typeof questionBanks === "undefined"){
-    throw new Error("The Cost Directive question bank did not load. Check cost_directive_question_bank_student.js.");
+if(!window.questionBanks){
+    throw new Error("The Cost Directive question bank did not load. Check cost_directive_question_bank.js.");
 }
-if(typeof microSkillRepairPools === "undefined" || typeof microSkillBridgePools === "undefined"){
-    throw new Error("The Cost Directive repair/bridge pools did not load. Check cost_directive_question_bank_student.js.");
+if(!window.microSkillRepairPools || !window.microSkillBridgePools){
+    throw new Error("The Cost Directive repair/bridge pools did not load. Check cost_directive_question_bank.js.");
 }
 console.log("The Cost Directive question bank loaded", {
     easy: questionBanks.easy?.length || 0,
@@ -5603,28 +5608,33 @@ console.log("The Cost Directive question bank loaded", {
 // This function ensures fairness in answer order.
 // =============================================   
 function shuffleOptions(question){
-    const q = {
-        ...question,
-        options: [...(question.options || [])],
-        secondarySkills: [...(question.secondarySkills || [])]
+    let q = {
+        id: question.id,
+        q: question.q,
+        options: [...question.options],
+        a: question.a,
+        feedback: question.feedback,
+        hint: question.hint,
+        tag: question.tag,
+        type: question.type,
+        objective: question.objective,
+        image: question.image,
+		difficulty: question.difficulty,
+        conceptCluster: question.conceptCluster,
+        primarySkill: question.primarySkill,
+        secondarySkills: question.secondarySkills || [],
+        repairSkill: question.repairSkill,
+        commonError: question.commonError
     };
 
-    // Faculty source questions use a numeric answer index.
-    // Published student questions use aHash tied to normalized option text.
-    const correctText = Number.isInteger(question.a)
-        ? question.options[question.a]
-        : null;
+    let correct = q.options[q.a];
 
     for(let i = q.options.length - 1; i > 0; i--){
-        const j = Math.floor(Math.random() * (i + 1));
+        let j = Math.floor(Math.random() * (i + 1));
         [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
     }
 
-    if(correctText !== null){
-        q.a = q.options.indexOf(correctText);
-    } else {
-        delete q.a;
-    }
+    q.a = q.options.indexOf(correct);
 
     return q;
 }
@@ -6218,6 +6228,7 @@ if(currentQuestion.image){
 // =============================================     
 function displayQuestion() {
     answerSubmissionPending = false;
+    questionStartTime = Date.now();
     const optionsElement = document.getElementById("answers");
     optionsElement.innerHTML = "";
 
@@ -6269,9 +6280,21 @@ function checkRapidGuessing(isCorrect, responseTime){
 
     const avgTime = recent.reduce((sum, item) => sum + item.responseTime, 0) / recent.length;
     const accuracy = recent.reduce((sum, item) => sum + item.correct, 0) / recent.length;
+    const burst = recent.slice(-RAPID_GUESS_CONFIG.burstWindowSize);
+    const burstFastCount = burst.filter(item =>
+        item.responseTime < RAPID_GUESS_CONFIG.burstFastMs
+    ).length;
+    const burstAccuracy = burst.length
+        ? burst.reduce((sum, item) => sum + item.correct, 0) / burst.length
+        : 1;
+    const rollingPattern = avgTime < RAPID_GUESS_CONFIG.avgTimeMs
+        && accuracy < RAPID_GUESS_CONFIG.maxAccuracy;
+    const burstPattern = burst.length === RAPID_GUESS_CONFIG.burstWindowSize
+        && burstFastCount >= RAPID_GUESS_CONFIG.burstMinFast
+        && burstAccuracy <= RAPID_GUESS_CONFIG.burstMaxAccuracy;
 
     return {
-        triggered: avgTime < RAPID_GUESS_CONFIG.avgTimeMs && accuracy < RAPID_GUESS_CONFIG.maxAccuracy,
+        triggered: rollingPattern || burstPattern,
         avgTime,
         accuracy
     };
@@ -7054,7 +7077,6 @@ function handleLegendaryVictory(){
     document.getElementById("formulaHint").innerText = "";
     document.getElementById("artifactDrop").style.display = "none";
     closeGraphLightbox();
-    document.getElementById("questionImageBox").style.display = "none";
 
     document.getElementById("question").innerHTML = `
         <span class="boss-title">LEGENDARY MODE COMPLETE</span>
@@ -7214,7 +7236,8 @@ function handleScoreAttackVictory(){
             Best Streak: ${maxStreak}<br>
             Total Time: ${timeString}<br>
             Run ID: <strong>${runID}</strong><br>
-            Verification Code: <strong>${verificationCode}</strong>
+            Verification Code: <strong>${verificationCode}</strong><br>
+            Total Time: ${timeString}
         </div>
     `;
 
@@ -7262,9 +7285,9 @@ function handlePracticeModeComplete(){
         responseTime: 0,
         attempt: totalAttempts,
         streak: streak,
-        elapsedTime: totalTimeMs,
+        elapsedTime: startTime ? (Date.now() - startTime) : 0,
         adaptiveMode: `${gameMode}_complete`,
-        totalTime: totalTimeMs,
+        totalTime: startTime ? (Date.now() - startTime) : 0,
         accuracy: accuracy / 100,
         maxStreak: maxStreak,
         totalAttempts: totalAttempts,
@@ -7275,7 +7298,6 @@ function handlePracticeModeComplete(){
     document.getElementById("formulaHint").innerText = "";
     document.getElementById("artifactDrop").style.display = "none";
     closeGraphLightbox();
-    document.getElementById("questionImageBox").style.display = "none";
 
     document.getElementById("question").innerHTML = `
         <span class="boss-title">${getModeDisplayName().toUpperCase()} COMPLETE</span>
