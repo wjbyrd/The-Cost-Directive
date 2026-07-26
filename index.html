@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- COST DIRECTIVE — SHARED-ENGINE REPAIR BUILD 20260718_1 -->   
+<!-- COST DIRECTIVE — SHARED-ENGINE REPAIR BUILD 20260725 -->   
 <!-- =====================================================
 GAUNTLET ENGINE — MASTER TEMPLATE
 
@@ -5563,11 +5563,11 @@ function wizardSpeak(text){
 // =============================================
 
 
-if(!window.questionBanks){
-    throw new Error("The Cost Directive question bank did not load. Check cost_directive_question_bank.js.");
+if(typeof questionBanks === "undefined"){
+    throw new Error("The Cost Directive question bank did not load. Check cost_directive_question_bank_student.js.");
 }
-if(!window.microSkillRepairPools || !window.microSkillBridgePools){
-    throw new Error("The Cost Directive repair/bridge pools did not load. Check cost_directive_question_bank.js.");
+if(typeof microSkillRepairPools === "undefined" || typeof microSkillBridgePools === "undefined"){
+    throw new Error("The Cost Directive repair/bridge pools did not load. Check cost_directive_question_bank_student.js.");
 }
 console.log("The Cost Directive question bank loaded", {
     easy: questionBanks.easy?.length || 0,
@@ -6337,7 +6337,9 @@ async function answer(choice) {
     let isCorrect = false;
     try {
         isCorrect = await isQuestionAnswerCorrect(currentQuestion, choice);
+        if(answerSessionId !== runSessionId) return;
     } catch(error) {
+        if(answerSessionId !== runSessionId) return;
         console.error("Answer verification failed:", error);
         answerSubmissionPending = false;
         setAnswerButtonsDisabled(false);
