@@ -5620,33 +5620,29 @@ console.log("The Cost Directive question bank loaded", {
 // This function ensures fairness in answer order.
 // =============================================   
 function shuffleOptions(question){
-    let q = {
-        id: question.id,
-        q: question.q,
-        options: [...question.options],
-        a: question.a,
-        feedback: question.feedback,
-        hint: question.hint,
-        tag: question.tag,
-        type: question.type,
-        objective: question.objective,
-        image: question.image,
-		difficulty: question.difficulty,
-        conceptCluster: question.conceptCluster,
-        primarySkill: question.primarySkill,
-        secondarySkills: question.secondarySkills || [],
-        repairSkill: question.repairSkill,
-        commonError: question.commonError
+    const q = {
+        ...question,
+        options: [...(question.options || [])],
+        secondarySkills: [...(question.secondarySkills || [])]
     };
 
-    let correct = q.options[q.a];
+    // Faculty-source questions may still use a numeric answer index.
+    // Published student questions use aHash tied to normalized option text.
+    // Preserve aHash through the clone and only remap a when it actually exists.
+    const correctText = Number.isInteger(question.a)
+        ? question.options[question.a]
+        : null;
 
     for(let i = q.options.length - 1; i > 0; i--){
-        let j = Math.floor(Math.random() * (i + 1));
+        const j = Math.floor(Math.random() * (i + 1));
         [q.options[i], q.options[j]] = [q.options[j], q.options[i]];
     }
 
-    q.a = q.options.indexOf(correct);
+    if(correctText !== null){
+        q.a = q.options.indexOf(correctText);
+    } else {
+        delete q.a;
+    }
 
     return q;
 }
